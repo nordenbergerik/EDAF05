@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage[utf8]{inputenc}
+\usepackage{booktabs}
+\usepackage{microtype}
+\usepackage[colorinlistoftodos]{todonotes}
+\pagestyle{empty}
+
+\title{Word ladders report}
+\author{Author 1 and Author 2}
+
+\begin{document}
+  \maketitle
+
+  \section{Results}
+
+  All test cases were verified successfully by the provided test script. The program correctly solves the word ladder problem for all input sizes.
+
+  For the largest test input (6large2.in), the execution time was approximately $1.65 \times 10^{9}$ nanoseconds (approximately 1.65 seconds). The dominant factor in execution time is the graph construction phase, which has time complexity $O(n^2)$ due to pairwise comparisons of all words. The BFS algorithm itself runs efficiently at $O(n + m)$, where $n$ is the number of words and $m$ is the number of edges.
+
+  \section{Implementation details}
+
+  \textbf{Data Structures:} The solution uses the following data structures:
+  \begin{itemize}
+    \item \texttt{Scanner} for reading input (number of words, queries, and word list)
+    \item \texttt{String[]} array to store all dictionary words for quick access by index
+    \item \texttt{List<List<Integer>>} adjacency list to represent the graph, where each index contains a list of neighbors
+    \item \texttt{Map<String, Integer>} to map words to their indices for efficient lookup during queries
+    \item \texttt{Queue<Integer>} for BFS traversal
+    \item Boolean array and distance array for tracking visited nodes and computing shortest paths
+  \end{itemize}
+
+  \textbf{Algorithm:} The implementation proceeds in three main phases:
+  \begin{enumerate}
+    \item \textbf{Graph Construction:} Nested loops compare all pairs of words. For each pair, the \texttt{canGo()} method determines if a directed edge should be added. This phase has time complexity $O(n^2)$.
+    \item \textbf{Query Processing:} For each query, BFS finds the shortest path from the start word to the end word. BFS explores the graph level-by-level, ensuring the shortest path is found in unweighted graphs.
+    \item \textbf{Path Discovery:} BFS visits each node at most once and examines each edge once, yielding $O(n + m)$ complexity.
+  \end{enumerate}
+
+  \textbf{Overall Time Complexity:} $O(n^2 + q(n + m))$, where $n$ is the number of words, $m$ is the number of edges, and $q$ is the number of queries. The graph construction dominates for large $n$.
+
+\end{document}
